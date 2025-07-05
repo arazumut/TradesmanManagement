@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağazalar - Esnaf Yönetim Paneli</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Esnaf Panel</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Özet</a></li>
+                <li class="active"><a href="stores.html"><i class="fas fa-store"></i> Mağazalar</a></li>
+                <li><a href="users.html"><i class="fas fa-users"></i> Kullanıcılar</a></li>
+                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
+                <li><a href="categories.html"><i class="fas fa-tags"></i> Kategoriler</a></li>
+                <li><a href="products.html"><i class="fas fa-box"></i> Ürünler</a></li>
+                <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Raporlar</a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="page-title">
+                    <h1>Mağazalar</h1>
+                </div>
+                <div class="user-info">
+                    <span id="user-name">Admin</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <div class="search-box">
+                    <input type="text" id="search-store" placeholder="Mağaza ara...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-box">
+                    <select id="status-filter">
+                        <option value="all">Tüm Durumlar</option>
+                        <option value="true">Açık</option>
+                        <option value="false">Kapalı</option>
+                    </select>
+                </div>
+                <button id="add-store-btn" class="primary-btn"><i class="fas fa-plus"></i> Yeni Mağaza</button>
+            </div>
+
+            <!-- Stores Grid -->
+            <div class="stores-grid" id="stores-grid">
+                <!-- JS ile doldurulacak -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- JS ile doldurulacak -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Store Modal -->
+    <div id="store-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Yeni Mağaza Ekle</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="store-form">
+                    <input type="hidden" id="store-id">
+                    <div class="form-group">
+                        <label for="store-name">Mağaza Adı</label>
+                        <input type="text" id="store-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="store-address">Adres</label>
+                        <textarea id="store-address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="store-phone">Telefon</label>
+                        <input type="text" id="store-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="store-owner">Mağaza Sahibi (Esnaf)</label>
+                        <select id="store-owner" required>
+                            <option value="">Seçiniz...</option>
+                            <!-- JS ile doldurulacak -->
+                        </select>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="store-status">
+                        <label for="store-status">Mağaza Açık</label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-btn" class="secondary-btn">İptal</button>
+                        <button type="submit" id="save-store-btn" class="primary-btn">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Mağaza Silme</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Bu mağazayı silmek istediğinize emin misiniz? Bu işlem geri alınamaz ve mağazaya bağlı tüm ürünler ve siparişler de etkilenebilir.</p>
+                <div class="form-actions">
+                    <button type="button" id="cancel-delete-btn" class="secondary-btn">İptal</button>
+                    <button type="button" id="confirm-delete-btn" class="danger-btn">Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/stores.js"></script>
+</body>
+</html>

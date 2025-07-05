@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcılar - Esnaf Yönetim Paneli</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Esnaf Panel</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Özet</a></li>
+                <li><a href="stores.html"><i class="fas fa-store"></i> Mağazalar</a></li>
+                <li class="active"><a href="users.html"><i class="fas fa-users"></i> Kullanıcılar</a></li>
+                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
+                <li><a href="categories.html"><i class="fas fa-tags"></i> Kategoriler</a></li>
+                <li><a href="products.html"><i class="fas fa-box"></i> Ürünler</a></li>
+                <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Raporlar</a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="page-title">
+                    <h1>Kullanıcılar</h1>
+                </div>
+                <div class="user-info">
+                    <span id="user-name">Admin</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <div class="search-box">
+                    <input type="text" id="search-user" placeholder="Kullanıcı ara...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-box">
+                    <select id="role-filter">
+                        <option value="all">Tüm Roller</option>
+                        <option value="admin">Admin</option>
+                        <option value="tradesman">Esnaf</option>
+                        <option value="customer">Müşteri</option>
+                    </select>
+                </div>
+                <button id="add-user-btn" class="primary-btn"><i class="fas fa-plus"></i> Yeni Kullanıcı</button>
+            </div>
+
+            <!-- Users Table -->
+            <div class="data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Ad Soyad</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Durum</th>
+                            <th>Mağaza</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list">
+                        <!-- JS ile doldurulacak -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- JS ile doldurulacak -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit User Modal -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Yeni Kullanıcı Ekle</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="user-form">
+                    <input type="hidden" id="user-id">
+                    <div class="form-group">
+                        <label for="user-name">Ad Soyad</label>
+                        <input type="text" id="user-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" id="user-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Şifre</label>
+                        <input type="password" id="user-password" placeholder="Düzenleme sırasında boş bırakılabilir">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-phone">Telefon</label>
+                        <input type="text" id="user-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-role">Rol</label>
+                        <select id="user-role" required>
+                            <option value="customer">Müşteri</option>
+                            <option value="tradesman">Esnaf</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-address">Adres</label>
+                        <textarea id="user-address" rows="3"></textarea>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="user-status" checked>
+                        <label for="user-status">Aktif</label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" id="cancel-btn" class="secondary-btn">İptal</button>
+                        <button type="submit" id="save-user-btn" class="primary-btn">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Kullanıcı Silme</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Bu kullanıcıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz ve kullanıcının mağazaları, ürünleri ve siparişleri de etkilenebilir.</p>
+                <div class="form-actions">
+                    <button type="button" id="cancel-delete-btn" class="secondary-btn">İptal</button>
+                    <button type="button" id="confirm-delete-btn" class="danger-btn">Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/users.js"></script>
+</body>
+</html>

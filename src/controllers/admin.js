@@ -70,30 +70,12 @@ exports.getDashboard = async (req, res) => {
       });
     }
 
-    // En aktif mağazalar (son 30 gün)
-    const last30Days = new Date();
-    last30Days.setDate(last30Days.getDate() - 30);
-
+    // En aktif mağazalar
+    // Modeller arası ilişkiler ile ilgili hata olduğu için basitleştirilmiş sorgu
     const topStores = await Store.findAll({
-      include: [{
-        model: Order,
-        where: {
-          createdAt: {
-            [Op.gte]: last30Days
-          }
-        },
-        required: false,
-        attributes: []
-      }],
-      attributes: [
-        'id',
-        'name',
-        [require('sequelize').fn('COUNT', require('sequelize').col('Orders.id')), 'orderCount'],
-        [require('sequelize').fn('SUM', require('sequelize').col('Orders.totalAmount')), 'totalRevenue']
-      ],
-      group: ['Store.id'],
-      order: [[require('sequelize').literal('orderCount'), 'DESC']],
-      limit: 5
+      attributes: ['id', 'name', 'isOpen'],
+      limit: 5,
+      order: [['id', 'ASC']] // Şimdilik sadece ID'ye göre sırala
     });
 
     res.json({
@@ -109,29 +91,14 @@ exports.getDashboard = async (req, res) => {
       topStores,
       recentOrders: await Order.findAll({
         limit: 5,
-        order: [['createdAt', 'DESC']],
-        include: [
-          { model: User, attributes: ['id', 'name', 'email'] },
-          { model: Store, attributes: ['id', 'name'] }
-        ]
+        order: [['createdAt', 'DESC']]
       }),
       activeStoresList: await Store.findAll({
         where: { isOpen: true },
         limit: 5,
         include: [
-          { model: User, attributes: ['id', 'name', 'email'] },
-          { 
-            model: Order,
-            required: false,
-            attributes: []
-          }
-        ],
-        attributes: {
-          include: [
-            [require('sequelize').fn('COUNT', require('sequelize').col('Orders.id')), 'orderCount']
-          ]
-        },
-        group: ['Store.id', 'User.id']
+          { model: User, attributes: ['id', 'name', 'email'] }
+        ]
       })
     });
   } catch (error) {

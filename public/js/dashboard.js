@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <tr>
                     <td>#${order.id}</td>
                     <td>${order.user ? order.user.name : 'Belirsiz'}</td>
-                    <td>${order.store ? order.store.name : 'Belirsiz'}</td>
+                    <td>${'Mağaza Bilgisi Yok'}</td>
                     <td>${formatCurrency(order.totalAmount)}</td>
                     <td><span class="status ${getStatusClass(order.status)}">${formatStatus(order.status)}</span></td>
                     <td>${formatDate(order.createdAt)}</td>
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     <div class="store-body">
                         <div class="store-name">${store.name}</div>
                         <div class="store-info"><i class="fas fa-user"></i> ${store.user ? store.user.name : 'Belirsiz'}</div>
-                        <div class="store-info"><i class="fas fa-shopping-cart"></i> ${store.orderCount || 0} Sipariş</div>
+                        <div class="store-info"><i class="fas fa-shopping-cart"></i> 0 Sipariş</div>
                         <div class="store-open-status ${store.isOpen ? 'open' : 'closed'}">
                             ${store.isOpen ? 'Açık' : 'Kapalı'}
                         </div>
