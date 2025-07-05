@@ -98,4 +98,3 @@ function getStatusBadgeClass(status) {
     return classMap[status] || 'bg-secondary';
 }
     return status;
-}

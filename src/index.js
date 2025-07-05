@@ -44,8 +44,22 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 3000}`,
+        url: `http://localhost:${process.env.PORT || 3000}/api`,
         description: 'Development server',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
       },
     ],
   },
@@ -63,7 +77,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Socket.IO bağlantısı
 io.on('connection', (socket) => {
@@ -77,18 +91,28 @@ io.on('connection', (socket) => {
 // Global olarak io nesnesini kullanabilmek için
 app.set('io', io);
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/stores', storeRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/admin', adminRoutes);
+// API Routes
+app.use('/api', [
+  { path: '/auth', router: authRoutes },
+  { path: '/users', router: userRoutes },
+  { path: '/stores', router: storeRoutes },
+  { path: '/products', router: productRoutes },
+  { path: '/categories', router: categoryRoutes },
+  { path: '/orders', router: orderRoutes },
+  { path: '/admin', router: adminRoutes }
+].reduce((app, route) => {
+  app.use(route.path, route.router);
+  return app;
+}, express.Router()));
 
 // Ana sayfa
 app.get('/', (req, res) => {
   res.redirect('/admin');
+});
+
+// API sayfası
+app.get('/api', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/api.html'));
 });
 
 // Admin panel

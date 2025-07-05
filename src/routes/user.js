@@ -6,7 +6,7 @@ const { body } = require('express-validator');
 
 /**
  * @swagger
- * /api/users/profile:
+ * /users/profile:
  *   get:
  *     summary: Kullanıcı profilini getir
  *     tags: [Users]
@@ -22,7 +22,7 @@ router.get('/profile', auth, userController.getProfile);
 
 /**
  * @swagger
- * /api/users/profile:
+ * /users/profile:
  *   put:
  *     summary: Kullanıcı profilini güncelle
  *     tags: [Users]
@@ -54,7 +54,7 @@ router.put('/profile', auth, [
 
 /**
  * @swagger
- * /api/users/change-password:
+ * /users/change-password:
  *   put:
  *     summary: Şifre değiştir
  *     tags: [Users]
@@ -87,7 +87,7 @@ router.put('/change-password', auth, [
 
 /**
  * @swagger
- * /api/users/orders:
+ * /users/orders:
  *   get:
  *     summary: Kullanıcı siparişlerini getir
  *     tags: [Users]

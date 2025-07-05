@@ -69,7 +69,7 @@ const { body } = require('express-validator');
 
 /**
  * @swagger
- * /api/orders:
+ * /orders:
  *   get:
  *     summary: Kullanıcının siparişlerini listele
  *     tags: [Orders]
@@ -120,7 +120,7 @@ router.get('/store/:storeId', auth, orderController.getStoreOrders);
 
 /**
  * @swagger
- * /api/orders/reports/daily:
+ * /orders/reports/daily:
  *   get:
  *     summary: Günlük sipariş raporu
  *     tags: [Orders]
@@ -146,7 +146,7 @@ router.get('/reports/daily', auth, orderController.getDailyReport);
 
 /**
  * @swagger
- * /api/orders/reports/monthly:
+ * /orders/reports/monthly:
  *   get:
  *     summary: Aylık sipariş raporu
  *     tags: [Orders]
@@ -196,7 +196,7 @@ router.get('/:id', auth, orderController.getOrderById);
 
 /**
  * @swagger
- * /api/orders:
+ * /orders:
  *   post:
  *     summary: Yeni sipariş oluştur
  *     tags: [Orders]

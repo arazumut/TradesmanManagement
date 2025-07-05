@@ -88,7 +88,7 @@ router.get('/category/:categoryId', productController.getProductsByCategory);
 
 /**
  * @swagger
- * /api/products/search:
+ * /products/search:
  *   get:
  *     summary: Ürün arama
  *     tags: [Products]
@@ -112,7 +112,7 @@ router.get('/search', productController.searchProducts);
 
 /**
  * @swagger
- * /api/products:
+ * /products:
  *   get:
  *     summary: Tüm ürünleri listele (Admin için)
  *     tags: [Products]
@@ -179,7 +179,7 @@ router.get('/:id', auth, productController.getProductById);
 
 /**
  * @swagger
- * /api/products:
+ * /products:
  *   post:
  *     summary: Yeni ürün oluştur
  *     tags: [Products]

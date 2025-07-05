@@ -44,7 +44,7 @@ const { body } = require('express-validator');
 
 /**
  * @swagger
- * /api/stores:
+ * /stores:
  *   get:
  *     summary: Tüm mağazaları listele (müşteriler için)
  *     tags: [Stores]
@@ -56,7 +56,7 @@ router.get('/', storeController.getAllStores);
 
 /**
  * @swagger
- * /api/stores/my:
+ * /stores/my:
  *   get:
  *     summary: Kullanıcının mağazalarını getir
  *     tags: [Stores]
@@ -92,7 +92,7 @@ router.get('/:id', storeController.getStoreById);
 
 /**
  * @swagger
- * /api/stores:
+ * /stores:
  *   post:
  *     summary: Yeni mağaza oluştur
  *     tags: [Stores]

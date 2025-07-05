@@ -74,7 +74,7 @@ const { body } = require('express-validator');
 
 /**
  * @swagger
- * /api/auth/register:
+ * /auth/register:
  *   post:
  *     summary: Kullanıcı kaydı
  *     tags: [Authentication]
@@ -99,7 +99,7 @@ router.post('/register', [
 
 /**
  * @swagger
- * /api/auth/login:
+ * /auth/login:
  *   post:
  *     summary: Kullanıcı girişi
  *     tags: [Authentication]
@@ -122,7 +122,7 @@ router.post('/login', [
 
 /**
  * @swagger
- * /api/auth/admin/login:
+ * /auth/admin/login:
  *   post:
  *     summary: Admin girişi
  *     tags: [Authentication]
@@ -145,7 +145,7 @@ router.post('/admin/login', [
 
 /**
  * @swagger
- * /api/auth/verify:
+ * /auth/verify:
  *   get:
  *     summary: Token doğrulama
  *     tags: [Authentication]

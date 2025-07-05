@@ -14,7 +14,7 @@ const adminAuth = (req, res, next) => {
 
 /**
  * @swagger
- * /api/admin/dashboard:
+ * /admin/dashboard:
  *   get:
  *     summary: Admin dashboard verileri
  *     tags: [Admin]
@@ -30,7 +30,7 @@ router.get('/dashboard', auth, adminAuth, adminController.getDashboard);
 
 /**
  * @swagger
- * /api/admin/users:
+ * /admin/users:
  *   get:
  *     summary: Tüm kullanıcıları listele
  *     tags: [Admin]
@@ -63,7 +63,7 @@ router.get('/users', auth, adminAuth, adminController.getAllUsers);
 
 /**
  * @swagger
- * /api/admin/stores:
+ * /admin/stores:
  *   get:
  *     summary: Tüm mağazaları listele
  *     tags: [Admin]
@@ -90,7 +90,7 @@ router.get('/stores', auth, adminAuth, adminController.getAllStores);
 
 /**
  * @swagger
- * /api/admin/orders:
+ * /admin/orders:
  *   get:
  *     summary: Tüm siparişleri listele
  *     tags: [Admin]
@@ -170,7 +170,7 @@ router.patch('/stores/:id/approve', auth, adminAuth, adminController.toggleStore
 
 /**
  * @swagger
- * /api/admin/users:
+ * /admin/users:
  *   post:
  *     summary: Yeni admin kullanıcı oluştur
  *     tags: [Admin]
@@ -214,7 +214,7 @@ router.post('/users', auth, adminAuth, [
 
 /**
  * @swagger
- * /api/admin/reports/overview:
+ * /admin/reports/overview:
  *   get:
  *     summary: Genel sistem raporu
  *     tags: [Admin]
@@ -230,7 +230,7 @@ router.get('/reports/overview', auth, adminAuth, adminController.getSystemOvervi
 
 /**
  * @swagger
- * /api/admin/reports:
+ * /admin/reports:
  *   get:
  *     summary: Raporlar için veri getir
  *     tags: [Admin]
@@ -268,7 +268,7 @@ router.get('/reports', auth, adminAuth, adminController.getReports);
 
 /**
  * @swagger
- * /api/admin/reports/export:
+ * /admin/reports/export:
  *   get:
  *     summary: Rapor dışa aktarma (PDF/Excel)
  *     tags: [Admin]

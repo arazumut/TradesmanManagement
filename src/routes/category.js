@@ -67,7 +67,7 @@ router.get('/:id', categoryController.getCategoryById);
 
 /**
  * @swagger
- * /api/categories:
+ * /categories:
  *   post:
  *     summary: Yeni kategori oluştur
  *     tags: [Categories]
@@ -159,7 +159,7 @@ router.delete('/:id', auth, categoryController.deleteCategory);
 
 /**
  * @swagger
- * /api/categories:
+ * /categories:
  *   get:
  *     summary: Tüm kategorileri listele
  *     tags: [Categories]
