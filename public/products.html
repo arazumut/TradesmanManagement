@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürünler | Esnaf Yönetim Paneli</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Esnaf Yönetim Paneli</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-home me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="orders.html">
+                                <i class="fas fa-shopping-cart me-2"></i>
+                                Siparişler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="products.html">
+                                <i class="fas fa-box me-2"></i>
+                                Ürünler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="categories.html">
+                                <i class="fas fa-tags me-2"></i>
+                                Kategoriler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="stores.html">
+                                <i class="fas fa-store me-2"></i>
+                                Mağazalar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-users me-2"></i>
+                                Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reports.html">
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Raporlar
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="px-3">
+                        <button id="logout-btn" class="btn btn-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Ürünler</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                            <i class="fas fa-plus me-2"></i>Yeni Ürün Ekle
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter Section -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="categoryFilter" class="form-label">Kategori</label>
+                                <select class="form-select" id="categoryFilter">
+                                    <option value="">Tüm Kategoriler</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="storeFilter" class="form-label">Mağaza</label>
+                                <select class="form-select" id="storeFilter">
+                                    <option value="">Tüm Mağazalar</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="searchInput" class="form-label">Arama</label>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Ürün adı ara...">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-end">
+                                <button id="applyFilters" class="btn btn-primary">Filtrele</button>
+                                <button id="resetFilters" class="btn btn-secondary">Sıfırla</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Ürün ID</th>
+                                        <th>Resim</th>
+                                        <th>Ürün Adı</th>
+                                        <th>Kategori</th>
+                                        <th>Mağaza</th>
+                                        <th>Fiyat</th>
+                                        <th>Stok</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableBody">
+                                    <!-- Products will be loaded here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="pagination" class="d-flex justify-content-center mt-4">
+                            <!-- Pagination will be loaded here dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Yeni Ürün Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="productName" class="form-label">Ürün Adı</label>
+                                <input type="text" class="form-control" id="productName" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="productPrice" class="form-label">Fiyat (₺)</label>
+                                <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="productCategory" class="form-label">Kategori</label>
+                                <select class="form-select" id="productCategory" name="categoryId" required>
+                                    <!-- Categories will be loaded here dynamically -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="productStore" class="form-label">Mağaza</label>
+                                <select class="form-select" id="productStore" name="storeId" required>
+                                    <!-- Stores will be loaded here dynamically -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="productStock" class="form-label">Stok Miktarı</label>
+                                <input type="number" class="form-control" id="productStock" name="stock" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="productStatus" class="form-label">Durum</label>
+                                <select class="form-select" id="productStatus" name="status">
+                                    <option value="active">Aktif</option>
+                                    <option value="inactive">Pasif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="productDescription" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productImage" class="form-label">Ürün Görseli</label>
+                            <input type="file" class="form-control" id="productImage" name="image" accept="image/*">
+                            <div id="imagePreview" class="mt-2 d-none">
+                                <img src="" alt="Ürün Önizleme" class="img-thumbnail" style="max-height: 200px;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="saveProductBtn">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Ürün Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProductForm" enctype="multipart/form-data">
+                        <input type="hidden" id="editProductId" name="id">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductName" class="form-label">Ürün Adı</label>
+                                <input type="text" class="form-control" id="editProductName" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductPrice" class="form-label">Fiyat (₺)</label>
+                                <input type="number" class="form-control" id="editProductPrice" name="price" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductCategory" class="form-label">Kategori</label>
+                                <select class="form-select" id="editProductCategory" name="categoryId" required>
+                                    <!-- Categories will be loaded here dynamically -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductStore" class="form-label">Mağaza</label>
+                                <select class="form-select" id="editProductStore" name="storeId" required>
+                                    <!-- Stores will be loaded here dynamically -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductStock" class="form-label">Stok Miktarı</label>
+                                <input type="number" class="form-control" id="editProductStock" name="stock" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="editProductStatus" class="form-label">Durum</label>
+                                <select class="form-select" id="editProductStatus" name="status">
+                                    <option value="active">Aktif</option>
+                                    <option value="inactive">Pasif</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductDescription" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="editProductDescription" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductImage" class="form-label">Ürün Görseli</label>
+                            <input type="file" class="form-control" id="editProductImage" name="image" accept="image/*">
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="keepCurrentImage" checked>
+                                <label class="form-check-label" for="keepCurrentImage">
+                                    Mevcut görseli kullan (yeni görsel yüklemezseniz)
+                                </label>
+                            </div>
+                            <div id="editImagePreview" class="mt-2">
+                                <img src="" alt="Ürün Önizleme" class="img-thumbnail" style="max-height: 200px;">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="updateProductBtn">Güncelle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Product Confirmation Modal -->
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel">Ürün Silme Onayı</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bu ürünü silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</p>
+                    <input type="hidden" id="deleteProductId">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteProductBtn">Sil</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

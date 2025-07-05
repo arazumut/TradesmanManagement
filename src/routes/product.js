@@ -112,23 +112,70 @@ router.get('/search', productController.searchProducts);
 
 /**
  * @swagger
+ * /api/products:
+ *   get:
+ *     summary: Tüm ürünleri listele (Admin için)
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: categoryId
+ *         schema:
+ *           type: integer
+ *         description: Kategoriye göre filtrele
+ *       - in: query
+ *         name: storeId
+ *         schema:
+ *           type: integer
+ *         description: Mağazaya göre filtrele
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Ürün adına göre ara
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Sayfa numarası
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Sayfa başına ürün sayısı
+ *     responses:
+ *       200:
+ *         description: Başarılı
+ *       403:
+ *         description: Yetki hatası
+ */
+router.get('/', auth, productController.getAllProducts);
+
+/**
+ * @swagger
  * /api/products/{id}:
  *   get:
  *     summary: Ürün detaylarını getir
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: integer
+ *         description: Ürün ID'si
  *     responses:
  *       200:
  *         description: Başarılı
  *       404:
  *         description: Ürün bulunamadı
  */
-router.get('/:id', productController.getProductById);
+router.get('/:id', auth, productController.getProductById);
 
 /**
  * @swagger

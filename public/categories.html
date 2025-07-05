@@ -3,123 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kategoriler - Esnaf Yönetim Paneli</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Kategoriler | Esnaf Yönetim Paneli</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="admin-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <h2>Esnaf Panel</h2>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Özet</a></li>
-                <li><a href="stores.html"><i class="fas fa-store"></i> Mağazalar</a></li>
-                <li><a href="users.html"><i class="fas fa-users"></i> Kullanıcılar</a></li>
-                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
-                <li class="active"><a href="categories.html"><i class="fas fa-tags"></i> Kategoriler</a></li>
-                <li><a href="products.html"><i class="fas fa-box"></i> Ürünler</a></li>
-                <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Raporlar</a></li>
-                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış</a></li>
-            </ul>
-        </div>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Header -->
-            <div class="header">
-                <div class="page-title">
-                    <h1>Kategoriler</h1>
-                </div>
-                <div class="user-info">
-                    <span id="user-name">Admin</span>
-                    <div class="user-avatar">
-                        <i class="fas fa-user-circle"></i>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Esnaf Yönetim Paneli</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.html">
+                                <i class="fas fa-home me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="orders.html">
+                                <i class="fas fa-shopping-cart me-2"></i>
+                                Siparişler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">
+                                <i class="fas fa-box me-2"></i>
+                                Ürünler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="categories.html">
+                                <i class="fas fa-tags me-2"></i>
+                                Kategoriler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="stores.html">
+                                <i class="fas fa-store me-2"></i>
+                                Mağazalar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-users me-2"></i>
+                                Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reports.html">
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Raporlar
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="text-light">
+                    <div class="px-3">
+                        <button id="logout-btn" class="btn btn-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                        </button>
                     </div>
                 </div>
-            </div>
+            </nav>
 
-            <!-- Action Bar -->
-            <div class="action-bar">
-                <div class="search-box">
-                    <input type="text" id="search-category" placeholder="Kategori ara...">
-                    <button id="search-btn"><i class="fas fa-search"></i></button>
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Kategoriler</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" id="add-category-btn" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-plus me-1"></i> Yeni Kategori
+                        </button>
+                        <div class="user-info ms-3">
+                            <span id="user-name">Admin</span>
+                            <div class="user-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button id="add-category-btn" class="primary-btn"><i class="fas fa-plus"></i> Yeni Kategori</button>
-            </div>
 
-            <!-- Categories Table -->
-            <div class="data-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Kategori Adı</th>
-                            <th>Ürün Sayısı</th>
-                            <th>Oluşturulma Tarihi</th>
-                            <th>İşlemler</th>
-                        </tr>
-                    </thead>
-                    <tbody id="categories-list">
-                        <!-- JS ile doldurulacak -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination" id="pagination">
-                <!-- JS ile doldurulacak -->
-            </div>
+                <!-- Filter Section -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="input-group">
+                                    <input type="text" id="search-category" class="form-control" placeholder="Kategori ara...">
+                                    <button class="btn btn-outline-secondary" type="button" id="search-btn">
+                                        <i class="fas fa-search"></i>
+                <!-- Categories Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Kategori Adı</th>
+                                        <th>Açıklama</th>
+                                        <th>Ürün Sayısı</th>
+                                        <th>Oluşturulma Tarihi</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categories-list">
+                                    <!-- JS ile doldurulacak -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-center mt-3" id="pagination">
+                            <!-- JS ile doldurulacak -->
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
     <!-- Add/Edit Category Modal -->
-    <div id="category-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modal-title">Yeni Kategori Ekle</h3>
-                <span class="close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="category-form">
-                    <input type="hidden" id="category-id">
-                    <div class="form-group">
-                        <label for="category-name">Kategori Adı</label>
-                        <input type="text" id="category-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="category-description">Açıklama</label>
-                        <textarea id="category-description" rows="3"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" id="cancel-btn" class="secondary-btn">İptal</button>
-                        <button type="submit" id="save-category-btn" class="primary-btn">Kaydet</button>
-                    </div>
-                </form>
+    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoryModalLabel">Yeni Kategori Ekle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="category-form">
+                        <input type="hidden" id="category-id">
+                        <div class="mb-3">
+                            <label for="category-name" class="form-label">Kategori Adı</label>
+                            <input type="text" class="form-control" id="category-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category-description" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="category-description" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" id="save-category-btn" class="btn btn-primary">Kaydet</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div id="delete-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Kategori Silme</h3>
-                <span class="close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p>Bu kategoriyi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
-                <div class="form-actions">
-                    <button type="button" id="cancel-delete-btn" class="secondary-btn">İptal</button>
-                    <button type="button" id="confirm-delete-btn" class="danger-btn">Sil</button>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Kategori Silme</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bu kategoriyi silmek istediğinize emin misiniz? Bu işlem geri alınamaz.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" id="confirm-delete-btn" class="btn btn-danger">Sil</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/categories.js"></script>
 </body>

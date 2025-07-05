@@ -21,36 +21,43 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <tr>
                     <td>#${order.id}</td>
                     <td>${order.user ? order.user.name : 'Belirsiz'}</td>
-                    <td>${'Mağaza Bilgisi Yok'}</td>
+                    <td>${order.store ? order.store.name : 'Mağaza Bilgisi Yok'}</td>
                     <td>${formatCurrency(order.totalAmount)}</td>
-                    <td><span class="status ${getStatusClass(order.status)}">${formatStatus(order.status)}</span></td>
+                    <td><span class="badge ${getStatusBadgeClass(order.status)}">${formatStatus(order.status)}</span></td>
                     <td>${formatDate(order.createdAt)}</td>
                 </tr>
             `).join('');
         } else {
-            recentOrdersElement.innerHTML = '<tr><td colspan="6" class="text-center">Henüz sipariş bulunmuyor</td></tr>';
+            recentOrdersElement.innerHTML = '<tr><td colspan="6" class="text-center">Henüz sipariş bulunmuyor.</td></tr>';
         }
         
         // Aktif mağazaları listele
         const activeStoresElement = document.getElementById('active-stores-list');
         if (dashboardData.activeStoresList && dashboardData.activeStoresList.length > 0) {
             activeStoresElement.innerHTML = dashboardData.activeStoresList.map(store => `
-                <div class="store-card">
-                    <div class="store-header">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="store-body">
-                        <div class="store-name">${store.name}</div>
-                        <div class="store-info"><i class="fas fa-user"></i> ${store.user ? store.user.name : 'Belirsiz'}</div>
-                        <div class="store-info"><i class="fas fa-shopping-cart"></i> 0 Sipariş</div>
-                        <div class="store-open-status ${store.isOpen ? 'open' : 'closed'}">
-                            ${store.isOpen ? 'Açık' : 'Kapalı'}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">${store.name}</h5>
+                                <span class="badge bg-light text-dark">${store.isOpen ? 'Açık' : 'Kapalı'}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2"><i class="fas fa-user me-2"></i> ${store.user ? store.user.name : 'Belirsiz'}</div>
+                            <div class="mb-2"><i class="fas fa-phone me-2"></i> ${store.phone || 'Telefon Yok'}</div>
+                            <div><i class="fas fa-map-marker-alt me-2"></i> ${store.address || 'Adres Yok'}</div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="store-detail.html?id=${store.id}" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-eye me-1"></i> Detayları Gör
+                            </a>
                         </div>
                     </div>
                 </div>
             `).join('');
         } else {
-            activeStoresElement.innerHTML = '<div class="text-center">Aktif mağaza bulunamadı</div>';
+            activeStoresElement.innerHTML = '<div class="col-12 text-center py-4">Aktif mağaza bulunamadı</div>';
         }
         
     } catch (error) {
@@ -80,6 +87,15 @@ function formatStatus(status) {
     return statusMap[status] || status;
 }
 
-function getStatusClass(status) {
+function getStatusBadgeClass(status) {
+    const classMap = {
+        'pending': 'bg-warning',
+        'processing': 'bg-info',
+        'shipped': 'bg-primary',
+        'delivered': 'bg-success',
+        'cancelled': 'bg-danger'
+    };
+    return classMap[status] || 'bg-secondary';
+}
     return status;
 }

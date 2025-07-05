@@ -3,123 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esnaf Yönetim Paneli</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Dashboard | Esnaf Yönetim Paneli</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="admin-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="logo">
-                <h2>Esnaf Panel</h2>
-            </div>
-            <ul class="nav-menu">
-                <li class="active"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Özet</a></li>
-                <li><a href="stores.html"><i class="fas fa-store"></i> Mağazalar</a></li>
-                <li><a href="users.html"><i class="fas fa-users"></i> Kullanıcılar</a></li>
-                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
-                <li><a href="categories.html"><i class="fas fa-tags"></i> Kategoriler</a></li>
-                <li><a href="products.html"><i class="fas fa-box"></i> Ürünler</a></li>
-                <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Raporlar</a></li>
-                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış</a></li>
-            </ul>
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white">Esnaf Yönetim Paneli</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="dashboard.html">
+                                <i class="fas fa-home me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="orders.html">
+                                <i class="fas fa-shopping-cart me-2"></i>
+                                Siparişler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">
+                                <i class="fas fa-box me-2"></i>
+                                Ürünler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="categories.html">
+                                <i class="fas fa-tags me-2"></i>
+                                Kategoriler
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="stores.html">
+                                <i class="fas fa-store me-2"></i>
+                                Mağazalar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="users.html">
+                                <i class="fas fa-users me-2"></i>
+                                Kullanıcılar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="reports.html">
+                                <i class="fas fa-chart-bar me-2"></i>
+                                Raporlar
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="text-light">
+                    <div class="px-3">
+                        <button id="logout-btn" class="btn btn-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                        </button>
+                    </div>
+                </div>
+            </nav>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Header -->
-            <div class="header">
-                <div class="page-title">
-                    <h1>Panel Özeti</h1>
-                </div>
-                <div class="user-info">
-                    <span id="user-name">Admin</span>
-                    <div class="user-avatar">
-                        <i class="fas fa-user-circle"></i>
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Panel Özeti</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-download me-1"></i> Export
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-sync me-1"></i> Yenile
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Dashboard Stats -->
-            <div class="dashboard-stats">
-                <div class="stat-card">
-                    <div class="stat-icon blue">
-                        <i class="fas fa-users"></i>
+                <!-- Dashboard Stats -->
+                <div class="row mt-4">
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-primary text-white h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="text-white-75">Kullanıcılar</div>
+                                        <div class="display-6 fw-bold" id="total-users">0</div>
+                                    </div>
+                                    <i class="fas fa-users fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-info">
-                        <h3>Kullanıcılar</h3>
-                        <h2 id="total-users">0</h2>
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-success text-white h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="text-white-75">Aktif Mağazalar</div>
+                                        <div class="display-6 fw-bold" id="active-stores">0</div>
+                                    </div>
+                                    <i class="fas fa-store fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-warning text-white h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="text-white-75">Siparişler</div>
+                                        <div class="display-6 fw-bold" id="total-orders">0</div>
+                                    </div>
+                                    <i class="fas fa-shopping-cart fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-danger text-white h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="text-white-75">Toplam Gelir</div>
+                                        <div class="display-6 fw-bold" id="total-revenue">₺0</div>
+                                    </div>
+                                    <i class="fas fa-money-bill-wave fa-2x"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon green">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>Aktif Mağazalar</h3>
-                        <h2 id="active-stores">0</h2>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon orange">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>Siparişler</h3>
-                        <h2 id="total-orders">0</h2>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon purple">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3>Toplam Gelir</h3>
-                        <h2 id="total-revenue">₺0</h2>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Recent Orders -->
-            <div class="dashboard-section">
-                <div class="section-header">
-                    <h2>Son Siparişler</h2>
-                    <a href="orders.html" class="view-all">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
+                <!-- Recent Orders -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Son Siparişler</h5>
+                        <a href="orders.html" class="btn btn-sm btn-outline-primary">
+                            Tümünü Gör <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sipariş ID</th>
+                                        <th>Müşteri</th>
+                                        <th>Mağaza</th>
+                                        <th>Tutar</th>
+                                        <th>Durum</th>
+                                        <th>Tarih</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-orders">
+                                    <!-- JS will populate this -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="orders-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Sipariş ID</th>
-                                <th>Müşteri</th>
-                                <th>Mağaza</th>
-                                <th>Tutar</th>
-                                <th>Durum</th>
-                                <th>Tarih</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recent-orders">
+                <!-- Active Stores -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Aktif Mağazalar</h5>
+                        <a href="stores.html" class="btn btn-sm btn-outline-primary">
+                            Tümünü Gör <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="active-stores-list">
                             <!-- JS will populate this -->
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Active Stores -->
-            <div class="dashboard-section">
-                <div class="section-header">
-                    <h2>Aktif Mağazalar</h2>
-                    <a href="stores.html" class="view-all">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="stores-grid" id="active-stores-list">
-                    <!-- JS will populate this -->
-                </div>
-            </div>
+            </main>
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/dashboard.js"></script>
 </body>

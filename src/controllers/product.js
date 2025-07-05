@@ -152,19 +152,64 @@ exports.searchProducts = async (req, res) => {
   }
 };
 
+// @desc    Tüm ürünleri listele (Admin için)
+// @route   GET /api/products
+// @access  Private (Admin)
+exports.getAllProducts = async (req, res) => {
+  try {
+    const { categoryId, storeId, search, page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+
+    const whereClause = {};
+
+    if (categoryId) {
+      whereClause.categoryId = categoryId;
+    }
+
+    if (storeId) {
+      whereClause.storeId = storeId;
+    }
+
+    if (search) {
+      whereClause.name = { [Op.like]: `%${search}%` };
+    }
+
+    const products = await Product.findAndCountAll({
+      where: whereClause,
+      include: [
+        { model: Category, attributes: ['id', 'name'] },
+        { model: Store, attributes: ['id', 'name'] }
+      ],
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      order: [['createdAt', 'DESC']]
+    });
+
+    res.json({
+      success: true,
+      products: products.rows,
+      totalPages: Math.ceil(products.count / limit),
+      currentPage: parseInt(page),
+      totalItems: products.count
+    });
+  } catch (error) {
+    console.error('Ürünleri listeleme hatası:', error);
+    res.status(500).json({ message: 'Ürünler listelenemedi' });
+  }
+};
+
 // @desc    Ürün detaylarını getir
 // @route   GET /api/products/:id
-// @access  Public
+// @access  Private
 exports.getProductById = async (req, res) => {
   try {
-    const product = await Product.findByPk(req.params.id, {
-      include: [{
-        model: Category,
-        attributes: ['id', 'name']
-      }, {
-        model: Store,
-        attributes: ['id', 'name', 'isOpen', 'address', 'phone']
-      }]
+    const { id } = req.params;
+
+    const product = await Product.findByPk(id, {
+      include: [
+        { model: Category, attributes: ['id', 'name'] },
+        { model: Store, attributes: ['id', 'name'] }
+      ]
     });
 
     if (!product) {
@@ -173,10 +218,10 @@ exports.getProductById = async (req, res) => {
 
     res.json({
       success: true,
-      data: product
+      ...product.dataValues
     });
   } catch (error) {
-    console.error('Ürün detay getirme hatası:', error);
+    console.error('Ürün detayı getirme hatası:', error);
     res.status(500).json({ message: 'Ürün detayları getirilemedi' });
   }
 };
@@ -383,4 +428,4 @@ exports.toggleProductStatus = async (req, res) => {
     console.error('Ürün durum değiştirme hatası:', error);
     res.status(500).json({ message: 'Ürün durumu değiştirilemedi' });
   }
-}; 
+};

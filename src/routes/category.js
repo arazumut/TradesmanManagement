@@ -157,4 +157,32 @@ router.put('/:id', auth, [
  */
 router.delete('/:id', auth, categoryController.deleteCategory);
 
-module.exports = router; 
+/**
+ * @swagger
+ * /api/categories:
+ *   get:
+ *     summary: Tüm kategorileri listele
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: Sayfa numarası
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Sayfa başına kategori sayısı
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Arama terimi
+ *     responses:
+ *       200:
+ *         description: Başarılı
+ */
+router.get('/', categoryController.getAllCategories);
+
+module.exports = router;

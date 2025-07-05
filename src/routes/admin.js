@@ -228,4 +228,87 @@ router.post('/users', auth, adminAuth, [
  */
 router.get('/reports/overview', auth, adminAuth, adminController.getSystemOverview);
 
-module.exports = router; 
+/**
+ * @swagger
+ * /api/admin/reports:
+ *   get:
+ *     summary: Raporlar için veri getir
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Başlangıç tarihi (YYYY-MM-DD)
+ *       - in: query
+ *         name: endDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Bitiş tarihi (YYYY-MM-DD)
+ *       - in: query
+ *         name: reportType
+ *         schema:
+ *           type: string
+ *           enum: [sales, stores, products, categories]
+ *           default: sales
+ *         description: Rapor tipi
+ *     responses:
+ *       200:
+ *         description: Başarılı
+ *       403:
+ *         description: Admin yetkisi gerekli
+ *       500:
+ *         description: Sunucu hatası
+ */
+router.get('/reports', auth, adminAuth, adminController.getReports);
+
+/**
+ * @swagger
+ * /api/admin/reports/export:
+ *   get:
+ *     summary: Rapor dışa aktarma (PDF/Excel)
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: startDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Başlangıç tarihi (YYYY-MM-DD)
+ *       - in: query
+ *         name: endDate
+ *         schema:
+ *           type: string
+ *           format: date
+ *         description: Bitiş tarihi (YYYY-MM-DD)
+ *       - in: query
+ *         name: reportType
+ *         schema:
+ *           type: string
+ *           enum: [sales, stores, products, categories]
+ *           default: sales
+ *         description: Rapor tipi
+ *       - in: query
+ *         name: exportType
+ *         schema:
+ *           type: string
+ *           enum: [pdf, excel]
+ *           default: pdf
+ *         description: Dışa aktarma formatı
+ *     responses:
+ *       200:
+ *         description: Başarılı
+ *       403:
+ *         description: Admin yetkisi gerekli
+ *       500:
+ *         description: Sunucu hatası
+ */
+router.get('/reports/export', auth, adminAuth, adminController.exportReport);
+
+module.exports = router;

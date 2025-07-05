@@ -1,5 +1,7 @@
-const { Category, Store } = require('../models');
+const { Category, Store, Product } = require('../models');
 const { validationResult } = require('express-validator');
+const { Op } = require('sequelize');
+const sequelize = require('../config/database');
 
 // @desc    Kategori oluştur
 // @route   POST /api/categories
@@ -199,5 +201,63 @@ exports.getCategoryById = async (req, res) => {
   } catch (error) {
     console.error('Kategori detay hatası:', error);
     res.status(500).json({ message: 'Kategori bilgileri alınırken hata oluştu' });
+  }
+};
+
+// @desc    Tüm kategorileri listele
+// @route   GET /api/categories
+// @access  Public
+exports.getAllCategories = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    const search = req.query.search || '';
+    
+    let whereClause = {};
+    if (search) {
+      whereClause.name = { [Op.like]: `%${search}%` };
+    }
+    
+    // Toplam kategori sayısını bul
+    const totalCategories = await Category.count({ where: whereClause });
+    
+    // Kategorileri getir ve her kategori için ürün sayısını hesapla
+    const categories = await Category.findAll({
+      where: whereClause,
+      order: [['name', 'ASC']],
+      limit,
+      offset
+    });
+    
+    // Her kategori için ürün sayısını manuel olarak hesapla
+    const categoriesWithProductCount = await Promise.all(
+      categories.map(async (category) => {
+        const plainCategory = category.get({ plain: true });
+        
+        // Ürün sayısını hesapla
+        const productCount = await Product.count({
+          where: { categoryId: category.id }
+        });
+        
+        plainCategory.productCount = productCount;
+        return plainCategory;
+      })
+    );
+    
+    res.json({
+      success: true,
+      count: categories.length,
+      data: categoriesWithProductCount,
+      pagination: {
+        page,
+        limit,
+        pages: Math.ceil(totalCategories / limit),
+        total: totalCategories
+      }
+    });
+  } catch (error) {
+    console.error('Kategori listeleme hatası:', error);
+    res.status(500).json({ message: 'Kategoriler listelenirken hata oluştu' });
   }
 };
