@@ -1,0 +1,321 @@
+/* Dashboard Specific Styles */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #2c3e50, #1a2530);
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.logo h2 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.nav-menu li {
+    margin-bottom: 5px;
+}
+
+.nav-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    transition: all 0.3s;
+}
+
+.nav-menu li a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-menu li.active a, .nav-menu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid #3498db;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.page-title h1 {
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+#user-name {
+    font-weight: 500;
+}
+
+/* Dashboard Stats */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 24px;
+}
+
+.blue { background-color: #3498db; }
+.green { background-color: #2ecc71; }
+.orange { background-color: #f39c12; }
+.purple { background-color: #9b59b6; }
+
+.stat-info h3 {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.stat-info h2 {
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+/* Dashboard Sections */
+.dashboard-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-header h2 {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.view-all {
+    color: #3498db;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.view-all i {
+    margin-left: 5px;
+}
+
+/* Tables */
+.orders-table {
+    padding: 0 20px 20px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+table tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Status Badges */
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pending { background-color: #f1c40f30; color: #f39c12; }
+.processing { background-color: #3498db30; color: #2980b9; }
+.shipped { background-color: #9b59b630; color: #8e44ad; }
+.delivered { background-color: #2ecc7130; color: #27ae60; }
+.cancelled { background-color: #e74c3c30; color: #c0392b; }
+
+/* Stores Grid */
+.stores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.store-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.store-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.store-header {
+    height: 100px;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.store-body {
+    padding: 15px;
+}
+
+.store-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.store-info {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 3px;
+}
+
+.store-open-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.open { background-color: #2ecc7130; color: #27ae60; }
+.closed { background-color: #e74c3c30; color: #c0392b; }
+
+/* Responsive */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .nav-menu li a span {
+        display: none;
+    }
+    
+    .nav-menu li a i {
+        margin-right: 0;
+        font-size: 18px;
+    }
+    
+    .logo h2 {
+        font-size: 0;
+    }
+    
+    .logo::after {
+        content: "EP";
+        font-size: 22px;
+        font-weight: 600;
+    }
+    
+    .main-content {
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stores-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stores-grid {
+        grid-template-columns: 1fr;
+    }
+}

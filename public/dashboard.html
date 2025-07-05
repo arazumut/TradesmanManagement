@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esnaf Yönetim Paneli</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2>Esnaf Panel</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="active"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Özet</a></li>
+                <li><a href="stores.html"><i class="fas fa-store"></i> Mağazalar</a></li>
+                <li><a href="users.html"><i class="fas fa-users"></i> Kullanıcılar</a></li>
+                <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Siparişler</a></li>
+                <li><a href="categories.html"><i class="fas fa-tags"></i> Kategoriler</a></li>
+                <li><a href="products.html"><i class="fas fa-box"></i> Ürünler</a></li>
+                <li><a href="reports.html"><i class="fas fa-chart-bar"></i> Raporlar</a></li>
+                <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Çıkış</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="page-title">
+                    <h1>Panel Özeti</h1>
+                </div>
+                <div class="user-info">
+                    <span id="user-name">Admin</span>
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Kullanıcılar</h3>
+                        <h2 id="total-users">0</h2>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Aktif Mağazalar</h3>
+                        <h2 id="active-stores">0</h2>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Siparişler</h3>
+                        <h2 id="total-orders">0</h2>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Toplam Gelir</h3>
+                        <h2 id="total-revenue">₺0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Son Siparişler</h2>
+                    <a href="orders.html" class="view-all">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="orders-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sipariş ID</th>
+                                <th>Müşteri</th>
+                                <th>Mağaza</th>
+                                <th>Tutar</th>
+                                <th>Durum</th>
+                                <th>Tarih</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-orders">
+                            <!-- JS will populate this -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Active Stores -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Aktif Mağazalar</h2>
+                    <a href="stores.html" class="view-all">Tümünü Gör <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="stores-grid" id="active-stores-list">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
